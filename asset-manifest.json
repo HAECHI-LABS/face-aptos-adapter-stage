@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/face-aptos-adapter/static/css/main.54612ac4.css",
-    "main.js": "/face-aptos-adapter/static/js/main.477c7182.js",
-    "static/media/fa-solid-900.ttf": "/face-aptos-adapter/static/media/fa-solid-900.b48ad290d0335879a92b.ttf",
-    "static/media/fa-solid-900.woff2": "/face-aptos-adapter/static/media/fa-solid-900.66104b766c3d0462b3c5.woff2",
-    "static/media/logo.svg": "/face-aptos-adapter/static/media/logo.7a23ae45110dc7397f2d9370a6d70925.svg",
-    "index.html": "/face-aptos-adapter/index.html",
-    "main.54612ac4.css.map": "/face-aptos-adapter/static/css/main.54612ac4.css.map",
-    "main.477c7182.js.map": "/face-aptos-adapter/static/js/main.477c7182.js.map"
+    "main.css": "/face-aptos-adapter-stage/static/css/main.60b4affe.css",
+    "main.js": "/face-aptos-adapter-stage/static/js/main.a25e0b08.js",
+    "static/media/fa-solid-900.ttf": "/face-aptos-adapter-stage/static/media/fa-solid-900.b48ad290d0335879a92b.ttf",
+    "static/media/fa-solid-900.woff2": "/face-aptos-adapter-stage/static/media/fa-solid-900.66104b766c3d0462b3c5.woff2",
+    "static/media/logo.svg": "/face-aptos-adapter-stage/static/media/logo.7a23ae45110dc7397f2d9370a6d70925.svg",
+    "index.html": "/face-aptos-adapter-stage/index.html",
+    "main.60b4affe.css.map": "/face-aptos-adapter-stage/static/css/main.60b4affe.css.map",
+    "main.a25e0b08.js.map": "/face-aptos-adapter-stage/static/js/main.a25e0b08.js.map"
   },
   "entrypoints": [
-    "static/css/main.54612ac4.css",
-    "static/js/main.477c7182.js"
+    "static/css/main.60b4affe.css",
+    "static/js/main.a25e0b08.js"
   ]
 }
