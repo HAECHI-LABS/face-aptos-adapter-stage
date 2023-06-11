@@ -1,13 +1,15 @@
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { formatPlatformCoin } from '../libs/platformCoin';
-import { accountAtom, networkAtom } from '../store';
+import { accountAtom, loginStatusAtom, networkAtom } from '../store';
 
 function AccountInformation() {
+  const isLoggedIn = useRecoilValue(loginStatusAtom);
   const account = useRecoilValue(accountAtom);
   const network = useRecoilValue(networkAtom)!;
 
-  if (!account.balance || !account.address) {
+  if (!isLoggedIn || !account || !account.balance || !account.address) {
     return null;
   }
 

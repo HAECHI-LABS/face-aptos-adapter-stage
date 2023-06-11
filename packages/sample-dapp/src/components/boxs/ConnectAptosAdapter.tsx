@@ -1,3 +1,5 @@
+import { WalletSelector } from '@aptos-labs/wallet-adapter-ant-design';
+import { WalletConnector } from '@aptos-labs/wallet-adapter-mui-design';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { FaceWalletName } from '@haechi-labs/face-aptos-adapter-plugin';
 import { Env, LoginProvider } from '@haechi-labs/face-types';
@@ -12,10 +14,12 @@ import { accountAtom, faceAtom, loginProvidersAtom, loginStatusAtom } from '../.
 import Box from '../common/Box';
 import Button from '../common/Button';
 import CheckboxList from '../common/CheckboxList';
+import Field from '../common/Field';
 import Message from '../common/Message';
 
-const defaultEnv = Env.ProdTest;
+const defaultEnv = Env.StageTest;
 const title = 'Aptos Adapter';
+
 function ConnectAptosAdapter() {
   const [loginProviders, setLoginProviders] = useRecoilState(loginProvidersAtom);
   const face = useRecoilValue(faceAtom);
@@ -23,7 +27,7 @@ function ConnectAptosAdapter() {
   if (!face) {
     return (
       <Box title={title}>
-        <Message type="danger">You must connect to the network first.</Message>
+        <Message type="danger">You must initialize Face Wallet first.</Message>
       </Box>
     );
   }
@@ -45,12 +49,6 @@ const AptosAdapterButtons = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginStatusAtom);
   const setAccount = useSetRecoilState(accountAtom);
 
-  useEffect(() => {
-    if (connected) {
-      setIsLoggedIn(true);
-    }
-  }, [connected, setIsLoggedIn]);
-
   const handleConnect = () => {
     try {
       connect(FaceWalletName);
@@ -70,6 +68,10 @@ const AptosAdapterButtons = () => {
       console.error('Failed to disconnect: ', error);
     }
   }, [disconnect, setAccount, setIsLoggedIn]);
+
+  useEffect(() => {
+    setIsLoggedIn(connected);
+  }, [connected, setIsLoggedIn, disconnect]);
 
   const getAccountInfoCallback = useCallback(async () => {
     try {
@@ -117,6 +119,12 @@ const AptosAdapterButtons = () => {
           Connect Aptos Adapter
         </Button>
       )}
+      <Field label={'Ant Design'}>
+        <WalletSelector />
+      </Field>
+      <Field label={'MUI Design'}>
+        <WalletConnector />
+      </Field>
       <Button onClick={handleDisconnect} disabled={!isLoggedIn}>
         Disconnect
       </Button>
