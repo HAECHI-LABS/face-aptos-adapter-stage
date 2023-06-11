@@ -1,0 +1,16 @@
+.Select  {
+  position: relative;
+}
+.Select select {
+  padding-right: 40px;
+  width: 100%;
+  text-align: left;
+}
+.Select .icon {
+  pointer-events: none;
+  position: absolute;
+  top:0;
+  right: 0;
+  height: 100%;
+  padding: 0 20px;
+}

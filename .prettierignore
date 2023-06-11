@@ -1,0 +1,7 @@
+**/build
+**/dist
+**/__generate__
+**/yarn.lock
+**/package-lock.json
+**/public/**
+packages/functions

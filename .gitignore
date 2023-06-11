@@ -1,0 +1,14 @@
+dist
+node_modules
+.idea
+yarn-error.log
+coverage
+.vscode
+
+# Ignore build file
+packages/*/.turbo
+packages/face-aptos-adapter-plugin/dist
+packages/sample-dapp/build
+build
+.DS_Store
+>>>>>>> edc35ee (feat: Add face-aptos-adapter-plugin)
