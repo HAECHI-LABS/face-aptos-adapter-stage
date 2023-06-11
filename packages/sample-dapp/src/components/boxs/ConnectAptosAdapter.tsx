@@ -14,8 +14,9 @@ import Button from '../common/Button';
 import CheckboxList from '../common/CheckboxList';
 import Message from '../common/Message';
 
-const defaultEnv = Env.ProdTest;
+const defaultEnv = Env.StageTest;
 const title = 'Aptos Adapter';
+
 function ConnectAptosAdapter() {
   const [loginProviders, setLoginProviders] = useRecoilState(loginProvidersAtom);
   const face = useRecoilValue(faceAtom);
@@ -23,7 +24,7 @@ function ConnectAptosAdapter() {
   if (!face) {
     return (
       <Box title={title}>
-        <Message type="danger">You must connect to the network first.</Message>
+        <Message type="danger">You must initialize Face Wallet first.</Message>
       </Box>
     );
   }

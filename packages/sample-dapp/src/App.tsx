@@ -5,8 +5,9 @@ import React from 'react';
 import { ReactComponent as Logo } from './assets/logo.svg';
 import AccountInformation from './components/AccountInformation';
 import ConnectAptosAdapter from './components/boxs/ConnectAptosAdapter';
-import ConnectNetwork from './components/boxs/ConnectNetwork';
+import InitializeNetwork from './components/boxs/InitializeNetwork';
 import SignMessage from './components/boxs/SignMessage';
+import Transaction from './components/boxs/Transaction';
 import AptosAdapter from './components/common/AptosAdapter';
 
 function App() {
@@ -15,10 +16,11 @@ function App() {
       <Logo />
       <AccountInformation />
       <div className="wrapper">
-        <ConnectNetwork />
+        <InitializeNetwork />
         <AptosAdapter>
           <ConnectAptosAdapter />
           <SignMessage />
+          <Transaction />
         </AptosAdapter>
       </div>
     </div>

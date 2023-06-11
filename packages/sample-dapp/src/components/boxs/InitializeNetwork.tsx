@@ -3,7 +3,7 @@ import { Env } from '@haechi-labs/face-types';
 import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { resolveApiKey } from '../../config/apiKey';
+import { API_KEY } from '../../config/apiKey';
 import { getNetwork } from '../../libs/network';
 import { faceAtom, networkAtom } from '../../store';
 import Box from '../common/Box';
@@ -13,11 +13,11 @@ import Message from '../common/Message';
 
 const defaultEnv = Env.StageTest;
 const defaultIframeUrl = 'https://app.stage-test.facewallet.xyz';
-const title = 'Connect Network';
+const title = 'Initialize Network';
 
-function ConnectNetwork() {
+function InitializeNetwork() {
   const [face, setFace] = useRecoilState(faceAtom);
-  const [apiKey, setApiKey] = useState<string>(resolveApiKey(defaultEnv));
+  const [apiKey, setApiKey] = useState<string>(API_KEY);
   const setNetwork = useSetRecoilState(networkAtom);
 
   const isFaceInitialized = !!face;
@@ -65,10 +65,10 @@ function ConnectNetwork() {
         />
       </Field>
       <Button onClick={() => connectTo()} disabled={isFaceInitialized}>
-        Connect to Aptos
+        Initialize Face Wallet
       </Button>
     </Box>
   );
 }
 
-export default ConnectNetwork;
+export default InitializeNetwork;

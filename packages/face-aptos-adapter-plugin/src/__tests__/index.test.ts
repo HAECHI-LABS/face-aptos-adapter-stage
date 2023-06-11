@@ -1,4 +1,5 @@
-import { Network } from '@haechi-labs/face-types';
+import { Face } from '@haechi-labs/face-sdk';
+import { Env, Network } from '@haechi-labs/face-types';
 
 import { FaceWallet } from '../index';
 
@@ -8,10 +9,12 @@ Basic tests to make sure basic variables and functions are defined on the wallet
 Note: change AptosWallet to match your class name
 */
 describe('AptosWallet', () => {
-  const wallet = new FaceWallet({
-    apiKey: '',
-    network: Network.APTOS_TESTNET,
-  });
+  const wallet = new FaceWallet(
+    new Face({
+      apiKey: '',
+      network: Network.APTOS_TESTNET,
+    })
+  );
 
   test('defines name', () => {
     expect(typeof wallet.name).toBe('string');
