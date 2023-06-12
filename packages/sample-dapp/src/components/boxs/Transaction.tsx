@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { getProvider } from '../../libs/utils';
-import { accountAtom, faceAtom, loginStatusAtom, networkAtom } from '../../store';
+import { faceAtom, loginStatusAtom, networkAtom } from '../../store';
 import Box from '../common/Box';
 import Button from '../common/Button';
 import Field from '../common/Field';
@@ -13,23 +13,12 @@ import Message from '../common/Message';
 
 const title = 'Aptos Transaction';
 
-interface Signature {
-  type: string;
-  public_key: string;
-  signature: string;
-}
-
-interface AptosSignature {
-  signature: Signature;
-}
-
 function AptosTransaction() {
   const face = useRecoilValue(faceAtom);
   const isLoggedIn = useRecoilValue(loginStatusAtom);
   const network = useRecoilValue(networkAtom)!;
   const wallet = useWallet();
   const [txHash, setTxHash] = useState('');
-  const [txSignature, setTxSignature] = useState('');
   const [receiver, setReceiver] = useState(
     '0x1138393532fb9d6de7807168f0c2c93240b7a88461cd9aea6b79b5c93f8063ab'
   );
@@ -37,7 +26,6 @@ function AptosTransaction() {
 
   const singleAgentTransaction = async () => {
     setTxHash('');
-    setTxSignature('');
 
     if (!receiver) {
       alert('Please enter contract address');
@@ -67,7 +55,6 @@ function AptosTransaction() {
 
   const signSingleAgentTransaction = async () => {
     setTxHash('');
-    setTxSignature('');
 
     if (!receiver) {
       alert('Please enter contract address');
@@ -96,7 +83,7 @@ function AptosTransaction() {
       )
     );
     await aptosClient.waitForTransaction(pendingTransaction.hash);
-    setTxSignature(pendingTransaction.hash);
+    setTxHash(pendingTransaction.hash);
 
     if (!submitTransactionRequest) {
       return;
@@ -124,9 +111,8 @@ function AptosTransaction() {
   };
 
   if (!face) {
-    if (txHash || txSignature) {
+    if (txHash) {
       setTxHash('');
-      setTxSignature('');
     }
     return (
       <Box title={title}>
@@ -135,9 +121,8 @@ function AptosTransaction() {
     );
   }
   if (!isLoggedIn) {
-    if (txHash || txSignature) {
+    if (txHash) {
       setTxHash('');
-      setTxSignature('');
     }
     return (
       <Box title={title}>
@@ -172,11 +157,6 @@ function AptosTransaction() {
               Explorer Link
             </a>
           </Message>
-        </>
-      )}
-      {txSignature && (
-        <>
-          <Message type="info">Signature: {txSignature}</Message>
         </>
       )}
     </Box>
