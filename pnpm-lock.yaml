@@ -104,9 +104,6 @@ importers:
       '@fortawesome/fontawesome-free':
         specifier: ^6.2.0
         version: 6.2.0
-      '@haechi-labs/face-aptos-adapter-plugin':
-        specifier: workspace:^
-        version: link:../face-aptos-adapter-plugin
       '@haechi-labs/face-sdk':
         specifier: ^1.10.1
         version: 1.10.1(@haechi-labs/face-types@1.10.1)(ethers@5.7.2)
@@ -167,6 +164,9 @@ importers:
       ethers:
         specifier: ^5.7.2
         version: 5.7.2
+      face-aptos-adapter-plugin:
+        specifier: workspace:^
+        version: link:../face-aptos-adapter-plugin
       gapi-script:
         specifier: ^1.2.0
         version: 1.2.0

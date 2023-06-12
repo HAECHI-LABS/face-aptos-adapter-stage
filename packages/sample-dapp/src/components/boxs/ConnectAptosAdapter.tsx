@@ -1,10 +1,10 @@
 import { WalletSelector } from '@aptos-labs/wallet-adapter-ant-design';
 import { WalletConnector } from '@aptos-labs/wallet-adapter-mui-design';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import { FaceWalletName } from '@haechi-labs/face-aptos-adapter-plugin';
 import { Env, LoginProvider } from '@haechi-labs/face-types';
 import { AptosClient, CoinClient } from 'aptos';
 import { BigNumber } from 'ethers';
+import { FaceWalletName } from 'face-aptos-adapter-plugin';
 import React, { useCallback, useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
