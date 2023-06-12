@@ -1,9 +1,11 @@
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { AptosClient, Types } from 'aptos';
 import { ethers } from 'ethers';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { accountAtom, faceAtom, loginStatusAtom } from '../../store';
+import { getProvider } from '../../libs/utils';
+import { faceAtom, loginStatusAtom, networkAtom } from '../../store';
 import Box from '../common/Box';
 import Button from '../common/Button';
 import Field from '../common/Field';
@@ -11,23 +13,12 @@ import Message from '../common/Message';
 
 const title = 'Aptos Transaction';
 
-interface Signature {
-  type: string;
-  public_key: string;
-  signature: string;
-}
-
-interface AptosSignature {
-  signature: Signature;
-}
-
 function AptosTransaction() {
   const face = useRecoilValue(faceAtom);
-  const account = useRecoilValue(accountAtom);
   const isLoggedIn = useRecoilValue(loginStatusAtom);
+  const network = useRecoilValue(networkAtom)!;
   const wallet = useWallet();
   const [txHash, setTxHash] = useState('');
-  const [txSignature, setTxSignature] = useState('');
   const [receiver, setReceiver] = useState(
     '0x1138393532fb9d6de7807168f0c2c93240b7a88461cd9aea6b79b5c93f8063ab'
   );
@@ -35,7 +26,6 @@ function AptosTransaction() {
 
   const singleAgentTransaction = async () => {
     setTxHash('');
-    setTxSignature('');
 
     if (!receiver) {
       alert('Please enter contract address');
@@ -65,7 +55,6 @@ function AptosTransaction() {
 
   const signSingleAgentTransaction = async () => {
     setTxHash('');
-    setTxSignature('');
 
     if (!receiver) {
       alert('Please enter contract address');
@@ -81,17 +70,27 @@ function AptosTransaction() {
       type_arguments: ['0x1::aptos_coin::AptosCoin'],
     };
 
-    const response = await wallet.signTransaction(transaction);
+    const submitTransactionRequest = await wallet.signTransaction(transaction);
+    const aptosClient = new AptosClient(getProvider(network));
 
-    if (!response) {
+    const pendingTransaction = await aptosClient.submitTransaction(
+      Buffer.from(
+        (
+          (submitTransactionRequest.signature as Types.AccountSignature_Ed25519Signature)
+            .signature as string
+        ).slice(2),
+        'hex'
+      )
+    );
+    await aptosClient.waitForTransaction(pendingTransaction.hash);
+    setTxHash(pendingTransaction.hash);
+
+    if (!submitTransactionRequest) {
       return;
     }
 
-    const signature = JSON.parse(response) as AptosSignature;
-    setTxSignature(JSON.stringify(signature.signature));
-
     console.group('[Transaction Information]');
-    console.log('signed tx', response);
+    console.log('SubmitTransactionRequest: ', submitTransactionRequest);
     console.groupEnd();
   };
 
@@ -112,9 +111,8 @@ function AptosTransaction() {
   };
 
   if (!face) {
-    if (txHash || txSignature) {
+    if (txHash) {
       setTxHash('');
-      setTxSignature('');
     }
     return (
       <Box title={title}>
@@ -123,9 +121,8 @@ function AptosTransaction() {
     );
   }
   if (!isLoggedIn) {
-    if (txHash || txSignature) {
+    if (txHash) {
       setTxHash('');
-      setTxSignature('');
     }
     return (
       <Box title={title}>
@@ -160,11 +157,6 @@ function AptosTransaction() {
               Explorer Link
             </a>
           </Message>
-        </>
-      )}
-      {txSignature && (
-        <>
-          <Message type="info">Signature: {txSignature}</Message>
         </>
       )}
     </Box>
