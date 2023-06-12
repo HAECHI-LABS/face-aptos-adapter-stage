@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/face-aptos-adapter-stage/static/css/main.60b4affe.css",
-    "main.js": "/face-aptos-adapter-stage/static/js/main.5477297e.js",
+    "main.js": "/face-aptos-adapter-stage/static/js/main.dd8c3e9c.js",
     "static/media/fa-solid-900.ttf": "/face-aptos-adapter-stage/static/media/fa-solid-900.b48ad290d0335879a92b.ttf",
     "static/media/fa-solid-900.woff2": "/face-aptos-adapter-stage/static/media/fa-solid-900.66104b766c3d0462b3c5.woff2",
     "static/media/logo.svg": "/face-aptos-adapter-stage/static/media/logo.7a23ae45110dc7397f2d9370a6d70925.svg",
     "index.html": "/face-aptos-adapter-stage/index.html",
     "main.60b4affe.css.map": "/face-aptos-adapter-stage/static/css/main.60b4affe.css.map",
-    "main.5477297e.js.map": "/face-aptos-adapter-stage/static/js/main.5477297e.js.map"
+    "main.dd8c3e9c.js.map": "/face-aptos-adapter-stage/static/js/main.dd8c3e9c.js.map"
   },
   "entrypoints": [
     "static/css/main.60b4affe.css",
-    "static/js/main.5477297e.js"
+    "static/js/main.dd8c3e9c.js"
   ]
 }
