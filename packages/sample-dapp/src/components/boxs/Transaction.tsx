@@ -1,9 +1,11 @@
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { AptosClient, Types } from 'aptos';
 import { ethers } from 'ethers';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { accountAtom, faceAtom, loginStatusAtom } from '../../store';
+import { getProvider } from '../../libs/utils';
+import { accountAtom, faceAtom, loginStatusAtom, networkAtom } from '../../store';
 import Box from '../common/Box';
 import Button from '../common/Button';
 import Field from '../common/Field';
@@ -23,8 +25,8 @@ interface AptosSignature {
 
 function AptosTransaction() {
   const face = useRecoilValue(faceAtom);
-  const account = useRecoilValue(accountAtom);
   const isLoggedIn = useRecoilValue(loginStatusAtom);
+  const network = useRecoilValue(networkAtom)!;
   const wallet = useWallet();
   const [txHash, setTxHash] = useState('');
   const [txSignature, setTxSignature] = useState('');
@@ -81,17 +83,27 @@ function AptosTransaction() {
       type_arguments: ['0x1::aptos_coin::AptosCoin'],
     };
 
-    const response = await wallet.signTransaction(transaction);
+    const submitTransactionRequest = await wallet.signTransaction(transaction);
+    const aptosClient = new AptosClient(getProvider(network));
 
-    if (!response) {
+    const pendingTransaction = await aptosClient.submitTransaction(
+      Buffer.from(
+        (
+          (submitTransactionRequest.signature as Types.AccountSignature_Ed25519Signature)
+            .signature as string
+        ).slice(2),
+        'hex'
+      )
+    );
+    await aptosClient.waitForTransaction(pendingTransaction.hash);
+    setTxSignature(pendingTransaction.hash);
+
+    if (!submitTransactionRequest) {
       return;
     }
 
-    const signature = JSON.parse(response) as AptosSignature;
-    setTxSignature(JSON.stringify(signature.signature));
-
     console.group('[Transaction Information]');
-    console.log('signed tx', response);
+    console.log('SubmitTransactionRequest: ', submitTransactionRequest);
     console.groupEnd();
   };
 
