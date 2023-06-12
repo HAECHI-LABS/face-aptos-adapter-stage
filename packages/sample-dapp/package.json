@@ -1,7 +1,7 @@
 {
   "name": "@haechi-labs/face-aptos-adapter-sample-dapp",
   "homepage": "https://haechi-labs.github.io/face-aptos-adapter-stage",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@aptos-labs/wallet-adapter-ant-design": "^1.0.5",

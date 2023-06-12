@@ -10,7 +10,7 @@
     "bootstrap": "pnpm install && lerna exec pnpm build",
     "dev": "FORCE_COLOR=1 turbo run dev --filter=@haechi-labs/face-aptos-adapter-sample-dapp",
     "publish:minor": "pnpm run bootstrap && lerna version minor && lerna publish from-git",
-    "publish:patch": "pnpm run bootstrap && cd packages/face-aptos-adapter-plugin && lerna version patch && lerna publish from-git",
+    "publish:patch": "pnpm run bootstrap && lerna version patch && lerna publish from-git",
     "publish:prerelease": "pnpm run bootstrap && lerna version prerelease && lerna publish from-git",
     "fmt": "prettier --write '**/*.{js,jsx,ts,tsx}'",
     "check": "prettier --check '**/*.{js,jsx,ts,tsx}'",
