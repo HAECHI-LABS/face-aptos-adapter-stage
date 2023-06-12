@@ -40,5 +40,8 @@
     "dist",
     "packages/face-aptos-adapter-plugin/src"
   ],
-  "gitHead": "25578d3051ee2cb77f13c4ea8fcc90260612c5cf"
+  "gitHead": "ce2dea478d24f83458ebf690a7e1ac7ccfdb8155",
+  "publicConfig": {
+    "access": "public"
+  }
 }
