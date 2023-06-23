@@ -57,54 +57,45 @@ export class FaceWallet implements AdapterPlugin {
   }
 
   async connect(): Promise<AccountInfo> {
-    try {
-      await this.validateFaceInitialization();
-      const response = await this.provider!.auth.login(this.faceOauthProviders);
-      if (!response || !response.wallet) {
-        throw `Failed to connect account.`;
-      }
-      const addresses = await this.provider!.aptos.getProvider().getAddresses();
-      if (!addresses || addresses.length == 0) {
-        throw `Failed to get addresses. Wallet might not be initialized yet.`;
-      }
+    await this.validateFaceInitialization();
 
-      return {
-        address: addresses[0].hex()!,
-        publicKey: response.wallet.eddsaPublicKey!,
-      };
-    } catch (error: any) {
-      return error;
+    const response = await this.provider!.auth.login(this.faceOauthProviders);
+    if (!response || response.wallet) {
+      throw `Failed to connect account.`;
     }
+    const addresses = await this.provider!.aptos.getProvider().getAddresses();
+    if (!addresses || addresses.length == 0) {
+      throw `Failed to get addresses. Wallet might not be initialized yet.`;
+    }
+
+    return {
+      address: addresses[0].hex()!,
+      publicKey: response.wallet!.eddsaPublicKey!,
+    };
   }
 
   async account(): Promise<AccountInfo> {
-    try {
-      await this.validateFaceInitialization();
-      const response = await this.provider!.auth.getCurrentUser();
-      if (!response || !response.wallet) {
-        throw `Failed to get current account. Might not be logged in.`;
-      }
-      const addresses = await this.provider!.aptos.getProvider().getAddresses();
-      if (!addresses || addresses.length == 0) {
-        throw `Failed to get addresses. Wallet might not be initialized yet.`;
-      }
+    await this.validateFaceInitialization();
 
-      return {
-        address: addresses[0].hex()!,
-        publicKey: response.wallet.eddsaPublicKey!,
-      };
-    } catch (error: any) {
-      return error;
+    const response = await this.provider!.auth.getCurrentUser();
+    if (!response || !response.wallet) {
+      throw `Failed to get current account. Might not be logged in.`;
     }
+    const addresses = await this.provider!.aptos.getProvider().getAddresses();
+    if (!addresses || addresses.length == 0) {
+      throw `Failed to get addresses. Wallet might not be initialized yet.`;
+    }
+
+    return {
+      address: addresses[0].hex()!,
+      publicKey: response.wallet.eddsaPublicKey!,
+    };
   }
 
   async disconnect(): Promise<void> {
-    try {
-      await this.validateFaceInitialization();
-      await this.provider!.auth.logout();
-    } catch (error: any) {
-      return error;
-    }
+    await this.validateFaceInitialization();
+
+    await this.provider!.auth.logout();
   }
 
   async signAndSubmitTransaction(
@@ -116,75 +107,63 @@ export class FaceWallet implements AdapterPlugin {
     if (transaction.type !== 'entry_function_payload') {
       throw `Face wallet only supports transactions of the 'entry function payload' type`;
     }
+    const response = await this.provider?.aptos
+      .getProvider()
+      .signAndSubmitTransaction(
+        transaction as Types.TransactionPayload_EntryFunctionPayload,
+        options
+      );
 
-    try {
-      const response = await this.provider?.aptos
-        .getProvider()
-        .signAndSubmitTransaction(
-          transaction as Types.TransactionPayload_EntryFunctionPayload,
-          options
-        );
-      if (response) {
-        return response as { hash: Types.HexEncodedBytes };
-      } else {
-        throw `${FaceWalletName} Sign And Submit Transaction failed`;
-      }
-    } catch (error: any) {
-      return error;
+    if (response) {
+      return response as { hash: Types.HexEncodedBytes };
+    } else {
+      throw `${FaceWalletName} Sign And Submit Transaction failed`;
     }
   }
 
   async signTransaction(transaction: Types.TransactionPayload, options?: any): Promise<any> {
     await this.validateFaceInitialization();
+
     if (transaction.type !== 'entry_function_payload') {
       throw `Face wallet only supports transactions of the 'entry function payload' type`;
     }
-    try {
-      const response = await this.provider?.aptos
-        .getProvider()
-        .signTransaction(transaction as Types.TransactionPayload_EntryFunctionPayload, options);
-      if (response) {
-        return response;
-      } else {
-        throw `${FaceWalletName} Sign Transaction failed`;
-      }
-    } catch (error: any) {
-      return error;
+    const response = await this.provider?.aptos
+      .getProvider()
+      .signTransaction(transaction as Types.TransactionPayload_EntryFunctionPayload, options);
+
+    if (response) {
+      return response;
+    } else {
+      throw `${FaceWalletName} Sign Transaction failed`;
     }
   }
 
   async signMessage(message: SignMessagePayload): Promise<SignMessageResponse> {
     await this.validateFaceInitialization();
-    try {
-      if (typeof message !== 'object' || !message.nonce) {
-        `${FaceWalletName} Invalid signMessage Payload`;
-      }
 
-      const response = await this.provider!.aptos.getProvider().signMessage(message);
-      if (response) {
-        return response as SignMessageResponse;
-      } else {
-        throw `${FaceWalletName} Sign Message failed`;
-      }
-    } catch (error: any) {
-      return error;
+    if (typeof message !== 'object' || !message.nonce) {
+      `${FaceWalletName} Invalid signMessage Payload`;
+    }
+    const response = await this.provider!.aptos.getProvider().signMessage(message);
+
+    if (response) {
+      return response as SignMessageResponse;
+    } else {
+      throw `${FaceWalletName} Sign Message failed`;
     }
   }
 
   async network(): Promise<NetworkInfo> {
     await this.validateFaceInitialization();
-    try {
-      const response = await this.provider!.getNetwork();
 
-      if (!response) {
-        throw `${FaceWalletName} Network Error`;
-      }
-      return {
-        name: resolveNetworkName(response),
-      };
-    } catch (error: any) {
-      return error;
+    const response = await this.provider!.getNetwork();
+
+    if (!response) {
+      throw `${FaceWalletName} Network Error`;
     }
+    return {
+      name: resolveNetworkName(response),
+    };
   }
 
   // Unsupported method
