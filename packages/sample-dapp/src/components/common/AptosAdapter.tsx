@@ -1,5 +1,5 @@
 import { AptosWalletAdapterProvider, Wallet } from '@aptos-labs/wallet-adapter-react';
-import { FaceWallet } from 'face-aptos-adapter-plugin';
+import { FaceWallet } from '@haechi-labs/face-aptos-adapter-plugin';
 import React, {
   createContext,
   FC,

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { formatPlatformCoin } from '../libs/platformCoin';
