@@ -54,11 +54,11 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       '@haechi-labs/face-sdk':
-        specifier: ^1.10.1
-        version: 1.10.1(@haechi-labs/face-types@1.10.1)(ethers@5.7.2)
+        specifier: ^1.10.4
+        version: 1.10.4(@haechi-labs/face-types@1.10.4)(ethers@5.7.2)
       '@haechi-labs/face-types':
-        specifier: ^1.10.1
-        version: 1.10.1(ethers@5.7.2)
+        specifier: ^1.10.4
+        version: 1.10.4(ethers@5.7.2)
       '@types/jest':
         specifier: ^29.2.3
         version: 29.2.3
@@ -104,12 +104,15 @@ importers:
       '@fortawesome/fontawesome-free':
         specifier: ^6.2.0
         version: 6.2.0
+      '@haechi-labs/face-aptos-adapter-plugin':
+        specifier: workspace:^
+        version: link:../face-aptos-adapter-plugin
       '@haechi-labs/face-sdk':
-        specifier: ^1.10.1
-        version: 1.10.1(@haechi-labs/face-types@1.10.1)(ethers@5.7.2)
+        specifier: ^1.10.4
+        version: 1.10.4(@haechi-labs/face-types@1.10.4)(ethers@5.7.2)
       '@haechi-labs/face-types':
-        specifier: ^1.10.1
-        version: 1.10.1(ethers@5.7.2)
+        specifier: ^1.10.4
+        version: 1.10.4(ethers@5.7.2)
       '@noble/hashes':
         specifier: ^1.3.0
         version: 1.3.0
@@ -164,9 +167,6 @@ importers:
       ethers:
         specifier: ^5.7.2
         version: 5.7.2
-      face-aptos-adapter-plugin:
-        specifier: workspace:^
-        version: link:../face-aptos-adapter-plugin
       gapi-script:
         specifier: ^1.2.0
         version: 1.2.0
@@ -2378,14 +2378,14 @@ packages:
     requiresBuild: true
     dev: false
 
-  /@haechi-labs/face-sdk@1.10.1(@haechi-labs/face-types@1.10.1)(ethers@5.7.2):
-    resolution: {integrity: sha512-1svHGdo1okDTVz0w4nnrYWpTX4Wj2miJByOpcUc3JGs7yr2rjkajqufJnOw0IIsexAo+VwdRbkkTZ2iqAGHw9w==}
+  /@haechi-labs/face-sdk@1.10.4(@haechi-labs/face-types@1.10.4)(ethers@5.7.2):
+    resolution: {integrity: sha512-eXzetKA4UItTymTxRykSs58YSOHZeIiFTA48r/wI68dfkyaFv/VWfLZ0JSSPXtoKASBJEu8XpaTKRefBWbQ1Fw==}
     peerDependencies:
       '@haechi-labs/face-types': ^1.7.0
       ethers: ^5.6.8
     dependencies:
       '@aptos-labs/wallet-adapter-core': 2.2.0
-      '@haechi-labs/face-types': 1.10.1(ethers@5.7.2)
+      '@haechi-labs/face-types': 1.10.4(ethers@5.7.2)
       '@noble/hashes': 1.3.1
       '@solana/web3.js': 1.77.3
       aptos: 1.6.0
@@ -2398,8 +2398,8 @@ packages:
       - supports-color
       - utf-8-validate
 
-  /@haechi-labs/face-types@1.10.1(ethers@5.7.2):
-    resolution: {integrity: sha512-HAVB62y0wHdDzvojhlvuQfecb5xUvSebeOabu+Ar/pmkEfmcn01Ee1QdwxSO9+oXYAseFRnvRyX9+oFvtxQ5Eg==}
+  /@haechi-labs/face-types@1.10.4(ethers@5.7.2):
+    resolution: {integrity: sha512-o44zd2ocKrNwBZkoh1zgqZsnrFjh8fetThm+ClMaGre6SOV+Acw11WMpos30/101PTPWugvQ9DXY2KQc0kv5Mg==}
     peerDependencies:
       ethers: '>=5.6.8'
     dependencies:
