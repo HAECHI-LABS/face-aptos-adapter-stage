@@ -3,6 +3,11 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
+  devServer: {
+    client: {
+      overlay: false,
+    },
+  },
   webpack: {
     configure: (webpackConfig) => {
       webpackConfig.ignoreWarnings = [/Failed to parse source map/];
