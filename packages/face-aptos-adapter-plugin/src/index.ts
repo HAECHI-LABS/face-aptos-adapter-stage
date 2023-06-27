@@ -60,7 +60,7 @@ export class FaceWallet implements AdapterPlugin {
     await this.validateFaceInitialization();
 
     const response = await this.provider!.auth.login(this.faceOauthProviders);
-    if (!response || response.wallet) {
+    if (!response || !response.wallet) {
       throw `Failed to connect account.`;
     }
     const addresses = await this.provider!.aptos.getProvider().getAddresses();
